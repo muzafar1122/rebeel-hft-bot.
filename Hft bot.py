@@ -1,0 +1,28 @@
+import asyncio
+from metaapi_cloud_sdk import MetaApi
+
+# Rebel Credentials
+TOKEN = 'eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI3NWU1ZWM0Mzk1MmI3NGMwZWJlMGE1ZmQ3OTAyNGNlNyIsImFjY2Vzc1J1bGVzIjpbeyJpZCI6InRyYWRpbmctYWNjb3VudC1tYW5hZ2VtZW50LWFwaSIsIm1ldGhvZHMiOlsidHJhZGluZy1hY2NvdW50LW1hbmFnZW1lbnQtYXBpOnJlc3Q6cHVibGljOio6KiJdLCJyb2xlcyI6WyJyZWFkZXIiXSwicmVzb3VyY2VzIjpbImFjY291bnQ6JFVTRVJfSUQkOmNlNWNkYTE3LWRlYjQtNDgwYy1hN2QxLTRlNTRkOWExOGQxMCJdfSx7ImlkIjoibWV0YWFwaS1yZXN0LWFwaSIsIm1ldGhvZHMiOlsibWV0YWFwaS1hcGk6cmVzdDpwdWJsaWM6KjoqIl0sInJvbGVzIjpbInJlYWRlciIsIndyaXRlciJdLCJyZXNvdXJjZXMiOlsiYWNjb3VudDokVVNFUl9JRCQ6Y2U1Y2RhMTctZGViNC00ODBjLWE3ZDEtNGU1NGQ5YTE4ZDEwIl19LHsiaWQiOiJtZXRhYXBpLXJwYy1hcGkiLCJtZXRob2RzIjpbIm1ldGFhcGktYXBpOndzOnB1YmxpYzoqOioiXSwicm9sZXMiOlsicmVhZGVyIiwid3JpdGVyIl0sInJlc291cmNlcyI6WyJhY2NvdW50OiRVU0VSX0lEJDpjZTVjZGExNy1kZWI0LTQ4MGMtYTdkMS00ZTU0ZDlhMThkMTAiXX0seyJpZCI6Im1ldGFhcGktcmVhbC10aW1lLXN0cmVhbWluZy1hcGkiLCJtZXRob2RzIjpbIm1ldGFhcGktYXBpOndzOnB1YmxpYzoqOioiXSwicm9sZXMiOlsicmVhZGVyIiwid3JpdGVyIl0sInJlc291cmNlcyI6WyJhY2NvdW50OiRVU0VSX0lEJDpjZTVjZGExNy1kZWI0LTQ4MGMtYTdkMS00ZTU0ZDlhMThkMTAiXX0seyJpZCI6Im1ldGFzdGF0cy1hcGkiLCJtZXRob2RzIjpbIm1ldGFzdGF0cy1hcGk6cmVzdDpwdWJsaWM6KjoqIl0sInJvbGVzIjpbInJlYWRlciJdLCJyZXNvdXJjZXMiOlsiYWNjb3VudDokVVNFUl9JRCQ6Y2U1Y2RhMTctZGViNC00ODBjLWE3ZDEtNGU1NGQ5YTE4ZDEwIl19LHsiaWQiOiJyaXNrLW1hbmFnZW1lbnQtYXBpIiwibWV0aG9kcyI6WyJyaXNrLW1hbmFnZW1lbnQtYXBpOnJlc3Q6cHVibGljOio6KiJdLCJyb2xlcyI6WyJyZWFkZXIiXSwicmVzb3VyY2VzIjpbImFjY291bnQ6JFVTRVJfSUQkOmNlNWNkYTE3LWRlYjQtNDgwYy1hN2QxLTRlNTRkOWExOGQxMCJdfV0sImlnbm9yZVJhdGVMaW1pdHMiOmZhbHNlLCJ0b2tlbklkIjoiMjAyMTAyMTMiLCJpbXBlcnNvbmF0ZWQiOmZhbHNlLCJyZWFsVXNlcklkIjoiNzVlNWVjNDM5NTJiNzRjMGViZTBhNWZkNzkwMjRjZTciLCJpYXQiOjE3Njc2MzE0NzAsImV4cCI6MTc3NTQwNzQ3MH0.eQGmFLUU9oCMgwZbnEv3FTBiuvidmkRyqth99DfxCcb8tBOHhMRCsD4jvuwZA5TiJzOtYPBwJ04ABORrvsQVJRih1zTKJ-gbyc1yj5tYGptZqbVZMT6hSIZNn6Wutgjy5eKIrVBJ4j77I31qGLTzup8ynfXkHMVtzpxZXVJ7PlwGx5ZET7BcztBOIvYubprshLLXh0dVJKb0TeYlUlWG9HmsMPCBHYtY_34a8SWU6eEPP-GxhS4m4yDraBBBF2plTa1Zb-IzKTTMgRlAbFX0o_CCBjQNsMwQudHZUHzE5hiyezegOFfoAwQPWOqe9b6s7snbJbdDEIcOp8CFmiwy6yJt4cd5YVYniZbp8E7kQHXS-PWxJC-u90ZrxRfrBwZNTfK0JE_tZcVpK2UCHkXTzC2m3pGLI_Z59ZgyK3k9PlBvnCU7FFiEWHLWaJz0CdFJk1bxThY5Itel3sbj-JPxkzMeKTT_rtbcMm-RM5vDRVvVlQnTnSNI-5BIvG4XFHsLJuddFdrShZk4wTqf8lOG_R7d_v3kScMvjcIQ-06kL_KbNJDp18sUgeg6ezXDYqeQeLW2F6aHBymIWCcdG61LW9HhoMg9_9MmR3w9IzXYKBkjXuXZ-Bl5CXw9nIKhUY6bG7wZw_Rt_R3Marq4qEYlCNPTR7cjE_NR0byJHeiZJ00'
+ACCOUNT_ID = 'ce5cda17-deb4-480c-a7d1-4e54d9a18d10'
+
+async def smc_hft():
+    api = MetaApi(TOKEN)
+    account = await api.metatrader_account_api.get_account(ACCOUNT_ID)
+    connection = account.get_streaming_connection()
+    await connection.connect()
+    
+    print("🏦 Rebel Bot Online | London Node | Latency: 1ms")
+
+    async def on_tick(symbol, tick):
+        # Smart Money Logic: Price Velocity Check
+        # Agar price 1ms mein 15 points jump kare
+        if abs(tick['ask'] - tick['last_price']) > 0.00015:
+            print(f"🔥 Strike on {symbol}!")
+            if tick['ask'] > tick['last_price']:
+                await connection.create_market_buy_order(symbol, 0.1)
+            else:
+                await connection.create_market_sell_order(symbol, 0.1)
+
+    connection.add_tick_listener(on_tick)
+
+asyncio.run(smc_hft())
