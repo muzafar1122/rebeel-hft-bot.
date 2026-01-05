@@ -13,7 +13,7 @@ async def smc_hft():
         
         state = await account.get_state()
         if state['status'] != 'DEPLOYED':
-            print("⏳ Account status:", state['status'], "- Deploying now...")
+            print(f"⏳ Status: {state['status']} | Deploying London Server...")
             await account.deploy()
             await account.wait_deployed()
 
@@ -25,15 +25,14 @@ async def smc_hft():
 
         class MyListener:
             async def on_tick(self, symbol, tick):
-                # HFT Logic: Strike on 1.5 pip movement
                 if abs(tick['ask'] - tick['last_price']) > 0.00015:
-                    print(f"🔥 Price Strike on {symbol}!")
+                    print(f"🔥 Spike on {symbol}!")
                     if tick['ask'] > tick['last_price']:
                         await connection.create_market_buy_order(symbol, 0.1)
                     else:
                         await connection.create_market_sell_order(symbol, 0.1)
             async def on_error(self, error):
-                print(f"❌ Connection Error: {error}")
+                print(f"❌ Error: {error}")
 
         connection.add_synchronization_listener(MyListener())
         while True:
