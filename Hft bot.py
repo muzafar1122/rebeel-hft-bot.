@@ -1,7 +1,7 @@
 import asyncio
 from metaapi_cloud_sdk import MetaApi
 
-# Aapka Sahi Dashboard Details
+# Fixed Formatting
 TOKEN = 'eyJfaWQiOiI3NWU1ZWM0Mzk1MmI3NGMwZWJlMGE1ZmQ3OTAyNGNlNyIsImFjY2Vzc1J1bGVzIjpbeyJpZCI6InRyYWRpbmctYWNjb3VudC1tYW5hZ2VtZW50LWFwaSIsIm1ldGhvZHMiOlsidHJhZGluZy1hY2NvdW50LW1hbmFnZW1lbnQtYXBpOnJlc3Q6cHVibGljOio6KiJdLCJyb2xlcyI6WyJyZWFkZXIiXSwicmVzb3VyY2VzIjpbImFjY291bnQ6JFVTRVJfSUQkOmNlNWNkYTE3LWRlYjQtNDgwYy1hN2QxLTRjNTRkOWExOGQxMCJdfSx7ImlkIjoibWV0YWFwaS1yZXN0LWFwaSIsIm1ldGhvZHMiOlsibWV0YWFwaS1hcGk6cmVzdDpwdWJsaWM6KjoqIl0sInJvbGVzIjpbInJlYWRlciIsIndyaXRlciJdLCJyZXNvdXJjZXMiOlsiYWNjb3VudDokVVNFUl9JRCQ6Y2U1Y2RhMTctZGViNC00ODBjLWE3ZDEtNGM1NGQ5YTE4ZDEwIl19LHsiaWQiOiJtZXRhYXBpLXJwYy1hcGkiLCJtZXRob2RzIjpbIm1ldGFhcGktYXBpOndzOnB1YmxpYzoqOioiXSwicm9sZXMiOlsicmVhZGVyIiwid3JpdGVyIl0sInJlc291cmNlcyI6WyJhY2NvdW50OiRVU0VSX0lEJDpjZTVjZGExNy1kZWI0LTQ4MGMtYTdkMS00YzU0ZDlhMThkMTAiXX0seyJpZCI6Im1ldGFhcGktcmVhbC10aW1lLXN0cmVhbWluZy1hcGkiLCJtZXRob2RzIjpbIm1ldGFhcGktYXBpOndzOnB1YmxpYzoqOioiXSwicm9sZXMiOlsicmVhZGVyIiwid3JpdGVyIl0sInJlc291cmNlcyI6WyJhY2NvdW50OiRVU0VSX0lEJDpjZTVjZGExNy1kZWI0LTQ4MGMtYTdkMS00YzU0ZDlhMThkMTAiXX0seyJpZCI6Im1ldGFzdGF0cy1hcGkiLCJtZXRob2RzIjpbIm1ldGFzdGF0cy1hcGk6cmVzdDpwdWJsaWM6KjoqIl0sInJvbGVzIjpbInJlYWRlciJdLCJyZXNvdXJjZXMiOlsiYWNjb3VudDokVVNFUl9JRCQ6Y2U1Y2RhMTctZGViNC00ODBjLWE3ZDEtNGM1NGQ5YTE4ZDEwIl19LHsiaWQiOiJyaXNrLW1hbmFnZW1lbnQtYXBpIiwibWV0aG9kcyI6WyJyaXNrLW1hbmFnZW1lbnQtYXBpOnJlc3Q6cHVibGljOio6KiJdLCJyb2xlcyI6WyJyZWFkZXIiXSwicmVzb3VyY2VzIjpbImFjY291bnQ6JFVTRVJfSUQkOmNlNWNkYTE3LWRlYjQtNDgwYy1hN2QxLTRjNTRkOWExOGQxMCJdfV0sImlnbm9yZVJhdGVMaW1pdHMiOmZhbHNlLCJ0b2tlbklkIjoiMjAyMTAyMTMiLCJpbXBlcnNvbmF0ZWQiOmZhbHNlLCJyZWFsVXNlcklkIjoiNzVlNWVjNDM5NTJiNzRjMGViZTBhNWZkNzkwMjRjZTciLCJpYXQiOjE3Njc2Mzc1NzcsImV4cCI6MTc3NTQxMzU3N30'
 ACCOUNT_ID = 'ce5cda17-deb4-480c-a7d1-4c54d9a18d10'
 
@@ -13,7 +13,7 @@ async def smc_hft():
         
         state = await account.get_state()
         if state['status'] != 'DEPLOYED':
-            print(f"⏳ Status: {state['status']} | Deploying London Server...")
+            print(f"⏳ Status: {state['status']} | Deploying...")
             await account.deploy()
             await account.wait_deployed()
 
